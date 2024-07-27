@@ -23,8 +23,8 @@ catch (e) {
 }
 
 let vrchatOSC = new osc.UDPPort({
-    remoteAddress: "localhost",
-    remotePort: 9000,
+    remoteAddress: argv["osc-host"] ?? "localhost",
+    remotePort: argv["osc-port"] ?? 9000,
     metadata: true
 });
 
