@@ -17,6 +17,18 @@ Basically you have 3 parameters to play with:
   - Useful for those who wanna bind specific event to specific heart rate
   - Use case: changing your outfit on avatar to sport one when your bpm goes higher than 130
 
+## Launch options
+Many parameters can be configured by running the app with specific launch options.
+- `--no-browser`: Don't automatically launch default browser on startup
+  - Default: launches web UI on default browser
+- `--host` and `--port`: Address and port which WebSocket server will listen on
+  - Use when your computer running VRChat does not have Bluetooth, and you can run the HTTP interface on a device that does
+  - Default: `localhost` and `3228` respectively
+- `--osc-host` and `--osc-port`: Address and port where OSC data will be sent to
+  - Changes where OSC data is sent, use if you need to send data to a copy of VRChat in another machine
+  - Default: `localhost` and `9000` respctively
+
+
 ## Supported devices
 It was recently discovered that the app can support not only Mi band 4/5, but many more devices! If your smartwatch/fitness tracker supports Amazfit or Zepp apps, give it a try.
 ### Confirmed devices list:
