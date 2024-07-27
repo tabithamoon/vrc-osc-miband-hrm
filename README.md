@@ -8,14 +8,14 @@ By [Vard](https://twitter.com/VardFree)
 This app allows you to send OSC messages of your heart rate using your smartwatch/fitness tracker to your VRChat Avatar/Chatbox.
 Basically you have 3 parameters to play with:
 - `Heartrate` sends float value from `-1` to `1`
+  - Configurable maximum, defaults to 255bpm
   - Use case: Displaying bpm counter
 - `Heartrate2` sends float value from `0` to `1`
   - Configurable maximum, defaults to 255bpm
-  - Easier to control animations
   - Use case: Multiplier in animation speed to match bpm
 - `Heartrate3` sends int value from `0` to `255`
-  - Useful for those who wanna bind specific event to specific heart rate
-  - Use case: changing your outfit on avatar to sport one when your bpm goes higher than 130
+  - Useful for those who want to bind events to heart rate
+  - Use case: changing your outfit on avatar to sports outfit when your bpm goes higher than 130
 
 ## Launch options
 Many parameters can be configured by running the app with specific launch options.
@@ -27,7 +27,6 @@ Many parameters can be configured by running the app with specific launch option
 - `--osc-host` and `--osc-port`: Address and port where OSC data will be sent to
   - Changes where OSC data is sent, use if you need to send data to a copy of VRChat in another machine
   - Default: `localhost` and `9000` respctively
-
 
 ## Supported devices
 It was recently discovered that the app can support not only Mi band 4/5, but many more devices! If your smartwatch/fitness tracker supports Amazfit or Zepp apps, give it a try.
