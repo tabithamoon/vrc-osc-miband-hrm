@@ -5,7 +5,12 @@ const {apps} = open;
 const throttledQueue = require('throttled-queue');
 const chatboxRatelimit = throttledQueue(1, 1300);
 
-const server = new WebSocket.Server({ port: 3228});
+// Get launch flags
+var argv = require('minimist')(process.argv.slice(2));
+
+const server = new WebSocket.Server({
+    port: 3228
+});
 
 let vrchatOSC = new osc.UDPPort({
     remoteAddress: "localhost",
