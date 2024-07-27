@@ -27,6 +27,10 @@ Many parameters can be configured by running the app with specific launch option
 - `--osc-host` and `--osc-port`: Address and port where OSC data will be sent to
   - Changes where OSC data is sent, use if you need to send data to a copy of VRChat in another machine
   - Default: `localhost` and `9000` respctively
+- `--max-hr`: Set maximum heart rate for float values
+  - Changes what value is represented as `1` in floats
+  - Can improve precision and make animations easier to divide by heart rate
+  - Default: `255`
 
 ## Supported devices
 It was recently discovered that the app can support not only Mi band 4/5, but many more devices! If your smartwatch/fitness tracker supports Amazfit or Zepp apps, give it a try.
