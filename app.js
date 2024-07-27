@@ -6,9 +6,19 @@ const chatboxRatelimit = throttledQueue(1, 1300);
 // Get launch flags
 var argv = require('minimist')(process.argv.slice(2));
 
-const server = new WebSocket.Server({
-    port: 3228
-});
+// Create placeholder vars
+let server = undefined;
+
+try {
+    server = new WebSocket.Server({
+        host: argv.host || "localhost",
+        port: argv.port || 3228
+    });
+}
+catch (e) {
+    console.error(`Failed to open WebSocket: ${e.message}`)
+    process.exit(1)
+}
 
 let vrchatOSC = new osc.UDPPort({
     remoteAddress: "localhost",
