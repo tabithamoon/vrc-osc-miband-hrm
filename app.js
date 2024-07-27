@@ -5,7 +5,7 @@ const chatboxRatelimit = throttledQueue(1, 1300);
 
 // Get launch flags
 const argv = require('minimist')(process.argv.slice(2));
-const launchBrowser = argv.browser ?? true
+const launchBrowser = argv.browser ?? true;
 
 // Create placeholder vars
 let server = undefined;
@@ -18,8 +18,8 @@ try {
     });
 }
 catch (e) {
-    console.error(`Failed to open WebSocket: ${e.message}`)
-    process.exit(1)
+    console.error(`Failed to open WebSocket: ${e.message}`);
+    process.exit(1);
 }
 
 let vrchatOSC = new osc.UDPPort({
@@ -39,7 +39,7 @@ if (launchBrowser) {
         require('open')('https://vard88508.github.io/vrc-osc-miband-hrm/html/');
     }
     catch {
-        console.error("Failed to open default browser.")
+        console.error("Failed to open default browser.");
     }
 }
 
