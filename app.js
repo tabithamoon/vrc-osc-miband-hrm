@@ -13,8 +13,8 @@ let server = undefined;
 // Try to open WebSocket, handle fail
 try {
     server = new WebSocket.Server({
-        host: argv.host || "localhost",
-        port: argv.port || 3228
+        host: argv.host ?? "localhost",
+        port: argv.port ?? 3228
     });
 }
 catch (e) {
