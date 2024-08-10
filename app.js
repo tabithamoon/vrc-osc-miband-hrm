@@ -64,7 +64,7 @@ server.on('connection', ws => {
                     args:
                         {
                             type: "f",
-                            value: data / ((arg["max-hr"] ?? 255) / 2) - 1
+                            value: data / ((argv["max-hr"] ?? 255) / 2) - 1
                         }
                 };
                 let heartrate2 = {
@@ -72,7 +72,7 @@ server.on('connection', ws => {
                     args:
                         {
                             type: "f",
-                            value: data / (arg["max-hr"] ?? 255)
+                            value: data / (argv["max-hr"] ?? 255)
                         }
                 };
                 let heartrate3 = {
