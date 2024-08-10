@@ -1,0 +1,30 @@
+name: Node.js build exe
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        node-version: [22.x]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm install -g pkg
+    - run: pkg -t node22-win-x64 app.js
+
+    - name: Add to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: app-win.exe
+        asset_name: vrc-osc-miband-hrm.exe
+        tag: ${{ github.ref }}
+        overwrite: true
