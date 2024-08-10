@@ -17,8 +17,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: npm i
     - run: npm install -g pkg
-    - run: pkg -t node22-win-x64 app.js
+    - run: pkg -t latest-win-x64 -o app-win.exe app.js
 
     - name: Add to release
       uses: svenstaro/upload-release-action@v2
