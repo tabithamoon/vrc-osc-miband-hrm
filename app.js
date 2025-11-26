@@ -47,6 +47,10 @@ console.log("Waiting for WebSocket connection...");
 
 server.on('connection', ws => {
     console.log("Connected. Waiting for data...");
+
+    let isHRConnected = { address: "/avatar/parameters/isHRConnected", args: { type: "b". value: true } };
+    vrchatOSC.send(isHRConnected);
+    
     ws.on('message', function message(data) {
         let chatbox_text = JSON.parse(data).text;
         let data_string = data.toString();
@@ -56,54 +60,47 @@ server.on('connection', ws => {
             sendToChatbox = data_string;
         } else {
             if (data == 0) {
+                let isHRBeat = { address: "/avatar/parameters/isHRActive", args: { type: "b", value: false } };
+                let isHRBeat = { address: "/avatar/parameters/isHRBeat", args: { type: "b", value: false } };
+                vrchatOSC.send(isHRActive);
+                vrchatOSC.send(isHRBeat);
+                
                 console.log("Got heart rate: 0 bpm, skipping parameter update...");
             } else {
                 console.log('Got heart rate: %s bpm', data);
-                let heartrate = {
-                    address: "/avatar/parameters/Heartrate",
-                    args:
-                        {
-                            type: "f",
-                            value: data / ((argv["max-hr"] ?? 255) / 2) - 1
-                        }
+
+                let isHRBeat = { address: "/avatar/parameters/isHRActive", args: { type: "b", value: true } };
+                let isHRBeat = { address: "/avatar/parameters/isHRBeat", args: { type: "b", value: true } };
+                
+                let HR = {
+                    address: "/avatar/parameters/HR",
+                    args: {
+                        type: "i",
+                        value: data
+                    }
                 };
-                let heartrate2 = {
-                    address: "/avatar/parameters/Heartrate2",
-                    args:
-                        {
-                            type: "f",
-                            value: data / (argv["max-hr"] ?? 255)
-                        }
+
+                let HRPercent = {
+                    address: "/avatar/parameters/HRPercent",
+                    args: {
+                        type: "f".
+                        value: data / (argv["max-hr"] ?? 255)
+                    }
                 };
-                let heartrate3 = {
-                    address: "/avatar/parameters/Heartrate3",
-                    args:
-                        {
-                            type: "i",
-                            value: data
-                        }
+
+                let FullHRPercent = {
+                    address: "/avatar/parameters/FullHRPercent",
+                    args: {
+                        type: "f".
+                        value: data / ((argv["max-hr"] ?? 255) / 2) - 1
+                    }
                 };
-                vrchatOSC.send(heartrate);
-                vrchatOSC.send(heartrate2);
-                vrchatOSC.send(heartrate3);
-
-                if(sendToChatbox === "true") {
-
-                    chatboxRatelimit(() => {
-                        let text = chatboxText.replace("{HR}", data_string)+"    "
-                        // console.log('send '+ text);
-
-                        let heartrate_chatbox = {
-                            address: "/chatbox/input",
-                            args: [
-                                { type: "s", value: text},
-                                { type: "T", value: true}
-                            ],
-                        };
-
-                        vrchatOSC.send(heartrate_chatbox);
-                    });
-                }
+                
+                vrchatOSC.send(HR);
+                vrchatOSC.send(isHRBeat);
+                vrchatOSC.send(HRPercent);
+                vrchatOSC.send(isHRActive);
+                vrchatOSC.send(FullHRPercent);
             }
         }
     });
