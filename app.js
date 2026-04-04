@@ -59,33 +59,24 @@ server.on('connection', ws => {
                 console.log("Got heart rate: 0 bpm, skipping parameter update...");
             } else {
                 console.log('Got heart rate: %s bpm', data);
-                let heartrate = {
-                    address: "/avatar/parameters/Heartrate",
+                let hrperc = {
+                    address: "/avatar/parameters/HRPerc",
                     args:
                         {
                             type: "f",
-                            value: data / ((argv["max-hr"] ?? 255) / 2) - 1
+                            value: data / (argv["max-hr"] ?? 200)
                         }
                 };
-                let heartrate2 = {
-                    address: "/avatar/parameters/Heartrate2",
-                    args:
-                        {
-                            type: "f",
-                            value: data / (argv["max-hr"] ?? 255)
-                        }
-                };
-                let heartrate3 = {
-                    address: "/avatar/parameters/Heartrate3",
+                let hrabs = {
+                    address: "/avatar/parameters/HRAbs",
                     args:
                         {
                             type: "i",
                             value: data
                         }
                 };
-                vrchatOSC.send(heartrate);
-                vrchatOSC.send(heartrate2);
-                vrchatOSC.send(heartrate3);
+                vrchatOSC.send(hrperc);
+                vrchatOSC.send(hrabs);
 
                 if(sendToChatbox === "true") {
 
